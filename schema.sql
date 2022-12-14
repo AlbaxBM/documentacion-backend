@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mariadb
--- Tiempo de generación: 12-12-2022 a las 19:42:28
+-- Tiempo de generación: 14-12-2022 a las 21:10:50
 -- Versión del servidor: 10.10.2-MariaDB-1:10.10.2+maria~ubu2204
 -- Versión de PHP: 8.0.19
 
@@ -33,6 +33,14 @@ CREATE TABLE `documentos` (
   `ruta` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `documentos`
+--
+
+INSERT INTO `documentos` (`id`, `solicitud`, `ruta`) VALUES
+(1, 1, 'convalidaciones/solicitud1.pdf'),
+(2, 1, 'convalidaciones/solicitud1-nuevo.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -41,9 +49,17 @@ CREATE TABLE `documentos` (
 
 CREATE TABLE `estados` (
   `solicitud` int(10) UNSIGNED NOT NULL,
-  `actualizacion` timestamp NOT NULL,
+  `actualizacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `comentarios` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estados`
+--
+
+INSERT INTO `estados` (`solicitud`, `actualizacion`, `comentarios`) VALUES
+(1, '2022-12-14 11:46:35', 'Solicitud registrada'),
+(1, '2022-12-14 20:58:50', 'Entrega de documentación extra');
 
 -- --------------------------------------------------------
 
@@ -54,6 +70,14 @@ CREATE TABLE `estados` (
 CREATE TABLE `estudiantes` (
   `id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estudiantes`
+--
+
+INSERT INTO `estudiantes` (`id`) VALUES
+(1),
+(2);
 
 -- --------------------------------------------------------
 
@@ -66,6 +90,14 @@ CREATE TABLE `solicitudes` (
   `estudiante` int(10) UNSIGNED DEFAULT NULL,
   `tipo` enum('convalidacion','renuncia de convocatoria') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`id`, `estudiante`, `tipo`) VALUES
+(1, 1, 'convalidacion'),
+(2, 2, 'renuncia de convocatoria');
 
 --
 -- Índices para tablas volcadas
@@ -96,6 +128,28 @@ ALTER TABLE `estudiantes`
 ALTER TABLE `solicitudes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `estudiante` (`estudiante`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `documentos`
+--
+ALTER TABLE `documentos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `estudiantes`
+--
+ALTER TABLE `estudiantes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudes`
+--
+ALTER TABLE `solicitudes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
